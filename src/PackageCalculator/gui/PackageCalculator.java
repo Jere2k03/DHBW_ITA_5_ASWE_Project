@@ -1,4 +1,4 @@
-package gui;
+package PackageCalculator.gui;
 
 import javafx.application.Application;
 import javafx.geometry.Orientation;

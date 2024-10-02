@@ -1,4 +1,4 @@
-package gui;
+package PackageCalculator.gui;
 
 import javafx.scene.layout.GridPane;
 

@@ -1,8 +1,8 @@
-package control;
+package PackageCalculator.control;
 
 import java.io.File;
 
-import gui.PackageCalculator;
+import PackageCalculator.gui.PackageCalculator;
 import javafx.stage.DirectoryChooser;
 
 public class ProjectHandling {

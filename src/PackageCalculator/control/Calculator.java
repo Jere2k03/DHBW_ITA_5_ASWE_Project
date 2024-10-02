@@ -1,6 +1,6 @@
-package control;
+package PackageCalculator.control;
 
-import data.Packet;
+import PackageCalculator.data.Packet;
 
 public class Calculator {
 

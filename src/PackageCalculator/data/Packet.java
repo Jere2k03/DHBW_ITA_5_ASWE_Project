@@ -1,4 +1,4 @@
-package data;
+package PackageCalculator.data;
 
 public class Packet {
 
