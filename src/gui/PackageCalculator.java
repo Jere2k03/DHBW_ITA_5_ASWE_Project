@@ -1,4 +1,4 @@
-package PackageCalculator.gui;
+package gui;
 
 import javafx.application.Application;
 import javafx.geometry.Orientation;
@@ -9,6 +9,9 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
+/**
+ * 
+ */
 public class PackageCalculator extends Application {
 
 	public final static String APPNAME = "PackageCalculator";
@@ -36,6 +39,9 @@ public class PackageCalculator extends Application {
 		return this.primaryStage;
 	}
 	
+	/**
+	 * 
+	 */
 	@Override
 	public void start(Stage primaryStage) {
 		// remember singleton instance (instantiated by javafx)
@@ -77,6 +83,11 @@ public class PackageCalculator extends Application {
 		//ProjectHandling.openProject("/Users/...");
 	}
 
+	/**
+	 * 
+	 * @param args
+	 * @author Jeremias 
+	 */
 	public static void main(String[] args) {
 		launch(args);
 	}

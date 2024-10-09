@@ -1,4 +1,4 @@
-package PackageCalculator.gui;
+package gui;
 
 import java.io.File;
 

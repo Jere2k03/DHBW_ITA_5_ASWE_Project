@@ -1,7 +1,7 @@
-package PackageCalculator.gui;
+package gui;
 
-import PackageCalculator.control.Calculator;
-import PackageCalculator.data.Packet;
+import control.Calculator;
+import data.Packet;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;

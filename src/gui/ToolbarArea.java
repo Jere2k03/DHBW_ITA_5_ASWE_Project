@@ -1,6 +1,6 @@
-package PackageCalculator.gui;
+package gui;
 
-import PackageCalculator.control.ProjectHandling;
+import control.ProjectHandling;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Separator;
