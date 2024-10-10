@@ -6,7 +6,7 @@
     "configurations": [
         {
             "type": "java",
-            "name": "Launch Project",
+            "name": "run PackageCalculator",
             "request": "launch",
             "mainClass": "gui.PackageCalculator",
             "vmArgs": "--module-path /Users/jeremiasmatt/Documents/Studium_ITA/Semester/Semester_5/ASWE/javafx-sdk-23/lib --add-modules javafx.controls,javafx.fxml",
