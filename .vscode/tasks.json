@@ -1,0 +1,12 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Generate Javadocs",
+            "command": "javadoc -d docs -sourcepath src --module-path /Users/jeremiasmatt/Documents/Studium_ITA/Semester/Semester_5/ASWE/javafx-sdk-23/lib --add-modules javafx.controls -subpackages control:data:gui",
+            "type": "shell"
+        }
+    ]
+}
