@@ -1,3 +1,6 @@
+# .DS_Store file (MACOS)
+.DS_Store
+
 # Javadocs folder
 docs/*
 
