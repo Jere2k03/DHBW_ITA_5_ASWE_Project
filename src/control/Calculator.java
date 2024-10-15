@@ -2,8 +2,18 @@ package control;
 
 import data.Packet;
 
+/**
+ * This class calculates the shipping costs for a given pack.
+*/
 public class Calculator {
 
+	/** 
+	 * This method calculates the shipping costs for a given pack.
+	 * 
+	 * @param pack The pack with its properties for which the shipping costs should be calculated
+	 * @return double The shipping costs for the given package as a decimal number
+	 * @see Packet
+	 */
 	public double calcShippingCosts(Packet pack) {
 		double shippingCosts;
 		if ((pack.height <= 300) && (pack.width <= 300) && (pack.height <= 150)) {
