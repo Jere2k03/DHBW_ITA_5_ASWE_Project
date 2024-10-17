@@ -5,7 +5,7 @@
     "tasks": [
         {
             "label": "Generate Javadocs",
-            "command": "javadoc -d docs -sourcepath src --module-path /Users/jeremiasmatt/Documents/Studium_ITA/Semester/Semester_5/ASWE/javafx-sdk-23/lib --add-modules javafx.controls -subpackages control:data:gui",
+            "command": "rm -r docs; javadoc -d docs -sourcepath src --module-path /Users/jeremiasmatt/Documents/Studium_ITA/Semester/Semester_5/ASWE/javafx-sdk-23/lib --add-modules javafx.controls -subpackages control:data:gui",
             "type": "shell"
         }
     ]
