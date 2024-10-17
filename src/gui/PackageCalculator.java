@@ -47,7 +47,7 @@ public class PackageCalculator extends Application {
     // GUI areas
     public ToolbarArea toolbarArea = new ToolbarArea();
     public ExplorerArea explorerArea = new ExplorerArea();
-    public CalculatorArea editorArea = new CalculatorArea();
+    public CalculatorArea calculatorArea = new CalculatorArea();
     public InspectorArea inspectorArea = new InspectorArea();
     public MessagesArea messagesArea = new MessagesArea();
     public StatusArea statusArea = new StatusArea();
@@ -84,9 +84,9 @@ public class PackageCalculator extends Application {
         // Remember the primary stage for further use
         this.primaryStage = primaryStage;
 
-        // Create a horizontal split pane for editor and inspector areas
+        // Create a horizontal split pane for calculator and inspector areas
         SplitPane lr2SplitPane = new SplitPane();
-        lr2SplitPane.getItems().addAll(editorArea, inspectorArea);
+        lr2SplitPane.getItems().addAll(calculatorArea, inspectorArea);
         lr2SplitPane.setDividerPositions(0.8f, 0.2f);
         
         // Create a vertical split pane for the editor/inspector and messages areas
