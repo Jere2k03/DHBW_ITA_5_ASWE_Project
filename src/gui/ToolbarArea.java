@@ -18,6 +18,9 @@ import javafx.stage.Stage;
  * This class extends JavaFX's {@link ToolBar} and provides buttons with associated action listeners 
  * to interact with the rest of the application.
  * </p>
+ * 
+ * @author Jeremias Matt
+ * @version 0.1
  */
 public class ToolbarArea extends ToolBar {
     

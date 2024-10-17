@@ -12,6 +12,9 @@ import javafx.scene.layout.GridPane;
  * The CalculatorArea class represents the GUI component responsible for
  * calculating shipping costs based on user input of package dimensions and weight.
  * It extends {@link GridPane} to arrange input fields, labels, and buttons in a grid layout.
+ * 
+ * @author Jeremias Matt
+ * @version 0.1
  */
 public class CalculatorArea extends GridPane {
 

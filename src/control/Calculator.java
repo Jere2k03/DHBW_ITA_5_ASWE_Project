@@ -18,6 +18,7 @@ public class Calculator { //TODO: mehr exceptions einbauen
 	 * 
 	 * @param pack The pack with its properties for which the shipping costs should be calculated in mm and g
 	 * @return The shipping costs (in €) for the given package as a decimal number
+	 * @throws PacketValueExceptions
 	 * @see Packet
 	 */
 	public double calcShippingCosts(Packet pack) throws PacketValueExceptions {
