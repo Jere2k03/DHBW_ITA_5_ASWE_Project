@@ -36,20 +36,46 @@ public class CalculatorArea extends GridPane {
     private double calcShippingCosts() {
         // Initialize the calculator
         Calculator calc = new Calculator();
+        int length, width, height, weight;
+
+        try {
+            // Get user input values
+            length = Integer.parseInt(lengthTextField.getText());
+            width = Integer.parseInt(widthTextField.getText());
+            height = Integer.parseInt(heightTextField.getText());
+            weight = Integer.parseInt(weightTextField.getText());
+        }
+        catch (IllegalArgumentException e)    { // TODO: catch specific exception
+            // Handle the exception
+            System.out.println(e.getMessage());
+
+            //show error message to user
+            shippingCostLabel.setText("Error: " + e.getMessage());
+
+            // return -1 to indicate an error
+            return -1;
+        }
         
-        // Get user input values
-        int length = Integer.parseInt(lengthTextField.getText());
-        int width = Integer.parseInt(widthTextField.getText());
-        int height = Integer.parseInt(heightTextField.getText());
-        int weight = Integer.parseInt(weightTextField.getText());
         
-        // Perform the calculation using the Packet object
+        // Perform the calculation using the Packet object, only if all values are numbers
         Packet packet = new Packet(length, width, height, weight);
-        Double costs = calc.calcShippingCosts(packet);
-        
-        // Display the result
-        shippingCostLabel.setText(costs.toString());
-        
+        Double costs = 0.0;
+        try {
+            costs = calc.calcShippingCosts(packet);
+            // Display the result
+            shippingCostLabel.setText(costs.toString());
+        }
+        catch (Exception e) {
+            // Handle the exception
+            System.out.println(e.getMessage());
+
+            //show error message to user
+            shippingCostLabel.setText("Error: " + e.getMessage());
+
+            // return -1 to indicate an error
+            return -1;
+        }
+
         return costs;
     }
     
