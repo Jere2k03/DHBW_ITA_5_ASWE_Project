@@ -45,7 +45,7 @@ public class CalculatorArea extends GridPane {
             height = Integer.parseInt(heightTextField.getText());
             weight = Integer.parseInt(weightTextField.getText());
         }
-        catch (IllegalArgumentException e)    { // TODO: catch specific exception
+        catch (IllegalArgumentException e)    {
             // Handle the exception
             System.out.println(e.getMessage());
 
