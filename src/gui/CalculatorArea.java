@@ -37,9 +37,10 @@ public class CalculatorArea extends GridPane {
      * @return The calculated shipping costs as a {@code double}.
      */
     private double calcShippingCosts() {
-        // Initialize the calculator
-        Calculator calc = new Calculator();
-        int length, width, height, weight;
+        Calculator calc = new Calculator(); // Initialize the calculator
+        int length, width, height, weight; // Package dimensions and weight
+        Double costs = 0.0; // initialize costs with 0.0
+        MessagesArea messagesArea = PackageCalculator.getInstance().messagesArea; // initialize messagesArea
 
         try {
             // Get user input values
@@ -52,8 +53,11 @@ public class CalculatorArea extends GridPane {
             // Handle the exception
             System.out.println(e.getMessage());
 
-            //show error message to user
-            shippingCostLabel.setText("Error: " + e.getMessage());
+            // reset Label
+            shippingCostLabel.setText("?"); 
+
+            // show error message to user
+            messagesArea.setMessage("Error: " + e.getMessage());
 
             // return -1 to indicate an error
             return -1;
@@ -62,23 +66,30 @@ public class CalculatorArea extends GridPane {
         
         // Perform the calculation using the Packet object, only if all values are numbers
         Packet packet = new Packet(length, width, height, weight);
-        Double costs = 0.0;
         try {
+            // Calculate the shipping costs
             costs = calc.calcShippingCosts(packet);
+
             // Display the result
             shippingCostLabel.setText(costs.toString());
+
+            // show success message to user with the price in the messages area
+            messagesArea.setMessage("Shipping costs calculated successfully. \nCosts: " + costs + " €");
         }
         catch (Exception e) {
             // Handle the exception
             System.out.println(e.getMessage());
 
-            //show error message to user
-            shippingCostLabel.setText("Error: " + e.getMessage());
+            // reset Label
+            shippingCostLabel.setText("?"); 
+
+            // show error message to user
+            messagesArea.setMessage("Error: " + e.getMessage());
 
             // return -1 to indicate an error
             return -1;
         }
-
+        
         return costs;
     }
     

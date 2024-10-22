@@ -20,7 +20,7 @@ import javafx.stage.Stage;
  * </p>
  * 
  * <p>
- * The main layout includes a {@link SplitPane} for dividing the explorer, editor, inspector, and messages
+ * The main layout includes a {@link SplitPane} for dividing the editor, inspector, and messages
  * areas. The GUI is set up when the application starts, and the stage is configured to maximize to the
  * primary screen's bounds.
  * </p>
@@ -46,7 +46,6 @@ public class PackageCalculator extends Application {
     
     // GUI areas
     public ToolbarArea toolbarArea = new ToolbarArea();
-    public ExplorerArea explorerArea = new ExplorerArea();
     public CalculatorArea calculatorArea = new CalculatorArea();
     public InspectorArea inspectorArea = new InspectorArea();
     public MessagesArea messagesArea = new MessagesArea();
@@ -95,15 +94,10 @@ public class PackageCalculator extends Application {
         tdSplitPane.getItems().addAll(lr2SplitPane, messagesArea);
         tdSplitPane.setDividerPositions(0.9f, 0.1f);
 
-        // Create a split pane for the explorer area and the rest of the UI
-        SplitPane lrSplitPane = new SplitPane();
-        lrSplitPane.getItems().addAll(explorerArea, tdSplitPane);
-        lrSplitPane.setDividerPositions(0.2f, 0.8f);
-
         // Set up the main layout (border pane) with the toolbar at the top and status area at the bottom
         BorderPane mainPane = new BorderPane();
         mainPane.setTop(toolbarArea);
-        mainPane.setCenter(lrSplitPane);
+        mainPane.setCenter(tdSplitPane);
         mainPane.setBottom(statusArea);
 
         // Show the main pane on the primary stage
