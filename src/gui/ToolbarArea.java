@@ -2,7 +2,7 @@ package gui;
 
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Separator;
+import javafx.scene.control.Label;
 import javafx.scene.control.ToolBar;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -22,7 +22,6 @@ import javafx.stage.Stage;
  * @version 0.1
  */
 public class ToolbarArea extends ToolBar {
-    
     /**
      * Displays an information dialog with details about the PackageCalculator application.
      * This dialog is modal and contains information such as the version and authors.
@@ -31,7 +30,7 @@ public class ToolbarArea extends ToolBar {
         Stage dialog = new Stage();
         dialog.initModality(Modality.APPLICATION_MODAL);
         VBox vbox = new VBox(20);
-        Text infoText = new Text("Package Calculator v0.3 \n (c) 2020 I. Bogicevic \n (c) 2024 J. Matt");
+        Text infoText = new Text("Package Calculator v0.3 \n© 2020 I. Bogicevic \n© 2024 J. Matt");
         vbox.getChildren().add(infoText);
         Scene dialogScene = new Scene(vbox, 400, 250);
         dialog.setScene(dialogScene);
