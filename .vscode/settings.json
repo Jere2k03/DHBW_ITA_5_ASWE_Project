@@ -3,5 +3,9 @@
     "java.project.outputPath": "bin",
     "java.project.referencedLibraries": [
         "lib/**/*.jar"
-    ]
+    ],
+    "sonarlint.connectedMode.project": {
+        "connectionId": "dhbw-ita-5-aswe-project",
+        "projectKey": "Jere2k03_DHBW_ITA_5_ASWE_Project"
+    }
 }
