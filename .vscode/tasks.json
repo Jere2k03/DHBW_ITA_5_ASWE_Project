@@ -15,11 +15,13 @@
             "args": [
               "-Dsonar.organization=dhbw-ita-5-aswe-project",
               "-Dsonar.projectKey=Jere2k03_DHBW_ITA_5_ASWE_Project",
-              "-Dsonar.sources=src",
-              "-Dsonar.java.binaries=bin",
+              "-Dsonar.sources=src/gui,src/control,src/data",
+              "-Dsonar.java.binaries=bin/gui,bin/control,bin/data",
+              "-Dsonar.junit.reportPaths=bin/test",
+              "-Dsonar.java.libraries=lib",
               "-Dsonar.host.url=https://sonarcloud.io",
-              "-Dsonar.login=ba1ea56cd0a0e2fbb438f8a5c8b2aac4aad10c61"
+              "-Dsonar.token=ba1ea56cd0a0e2fbb438f8a5c8b2aac4aad10c61"
             ]
-          }
+        }
     ]
 }
