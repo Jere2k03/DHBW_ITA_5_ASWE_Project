@@ -5,7 +5,7 @@ import data.Packet;
 /**
  * This class calculates the shipping costs for a given pack.
 */
-public class Calculator { //TODO: mehr exceptions einbauen
+public class Calculator {
 
 	public class PacketValueExceptions extends Exception {
 		public PacketValueExceptions(String message) {
@@ -70,7 +70,7 @@ public class Calculator { //TODO: mehr exceptions einbauen
 	 * @param length
 	 * @return the girth measure of the package
 	 */
-	private int calcGirth(int length, int width, int height) {
+	public int calcGirth(int length, int width, int height) {
 
 		// calculate the girth measure of the package
 		int girth = (length + 2 * width + 2 * height);
@@ -86,7 +86,7 @@ public class Calculator { //TODO: mehr exceptions einbauen
 	 * @return the sorted pack
 	 * @see Packet
 	 */
-	private Packet sortPackageValues(Packet pack)	{
+	public Packet sortPackageValues(Packet pack)	{
 
 		// sort the pack values in ascending order (length -> width -> height)
 		if (pack.length < pack.width) {

@@ -38,9 +38,13 @@ public class CalculatorArea extends GridPane {
      */
     private double calcShippingCosts() {
         Calculator calc = new Calculator(); // Initialize the calculator
-        int length, width, height, weight; // Package dimensions and weight
-        Double costs = 0.0; // initialize costs with 0.0
-        MessagesArea messagesArea = PackageCalculator.getInstance().messagesArea; // initialize messagesArea
+        // initialize Package dimensions and weight
+        int length;
+        int width;
+        int height;
+        int weight; 
+        Double costs; // initialize costs
+        MessagesArea messagesArea = PackageCalculator.messagesArea; // initialize messagesArea
 
         try {
             // Get user input values
@@ -50,9 +54,6 @@ public class CalculatorArea extends GridPane {
             weight = Integer.parseInt(weightTextField.getText());
         }
         catch (IllegalArgumentException e)    {
-            // Handle the exception
-            System.out.println(e.getMessage());
-
             // reset Label
             shippingCostLabel.setText("?"); 
 
@@ -76,10 +77,7 @@ public class CalculatorArea extends GridPane {
             // show success message to user with the price in the messages area
             messagesArea.setMessage("Shipping costs calculated successfully. \nCosts: " + costs + " €");
         }
-        catch (Exception e) {
-            // Handle the exception
-            System.out.println(e.getMessage());
-
+        catch (Exception e) {             
             // reset Label
             shippingCostLabel.setText("?"); 
 

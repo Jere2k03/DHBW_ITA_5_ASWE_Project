@@ -30,7 +30,7 @@ public class PackageCalculator extends Application {
     /**
      * The application name, used as the window title.
      */
-    public final static String APPNAME = "PackageCalculator";
+    public static final String APPNAME = "PackageCalculator";
     
     // Singleton instance
     private static PackageCalculator instance;
@@ -45,16 +45,11 @@ public class PackageCalculator extends Application {
     }
     
     // GUI areas
-    public ToolbarArea toolbarArea = new ToolbarArea();
-    public CalculatorArea calculatorArea = new CalculatorArea();
-    public InspectorArea inspectorArea = new InspectorArea();
-    public MessagesArea messagesArea = new MessagesArea();
-    public StatusArea statusArea = new StatusArea();
-
-    /**
-     * The root path of the currently opened project.
-     */
-    public String rootPath;
+    public static final ToolbarArea toolbarArea = new ToolbarArea();
+    public static final CalculatorArea calculatorArea = new CalculatorArea();
+    public static final InspectorArea inspectorArea = new InspectorArea();
+    public static final MessagesArea messagesArea = new MessagesArea();
+    public static final StatusArea statusArea = new StatusArea();
 
     // Primary stage reference
     private Stage primaryStage;
@@ -106,9 +101,6 @@ public class PackageCalculator extends Application {
         primaryStage.setTitle(APPNAME);
         primaryStage.setScene(scene);
         primaryStage.show();
-
-        // Optionally load a default workspace
-        // ProjectHandling.openProject("/Users/...");
     }
 
     /**
