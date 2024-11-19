@@ -1,3 +1,6 @@
+#sonar scanner
+.scannerwork/
+
 # .DS_Store file (MACOS)
 .DS_Store
 
