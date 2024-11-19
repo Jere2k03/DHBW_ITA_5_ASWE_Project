@@ -7,6 +7,19 @@
             "label": "Generate Javadocs",
             "command": "rm -r docs; javadoc -d docs -sourcepath src --module-path /Users/jeremiasmatt/Documents/Studium_ITA/Semester/Semester_5/ASWE/javafx-sdk-23/lib --add-modules javafx.controls -subpackages control:data:gui",
             "type": "shell"
-        }
+        },
+        {
+            "label": "SonarQube Scanner",
+            "type": "shell",
+            "command": "$HOME/.sonar/sonar-scanner-6.2.1.4610-macosx-x64/bin/sonar-scanner",
+            "args": [
+              "-Dsonar.organization=dhbw-ita-5-aswe-project",
+              "-Dsonar.projectKey=Jere2k03_DHBW_ITA_5_ASWE_Project",
+              "-Dsonar.sources=src",
+              "-Dsonar.java.binaries=bin",
+              "-Dsonar.host.url=https://sonarcloud.io",
+              "-Dsonar.login=ba1ea56cd0a0e2fbb438f8a5c8b2aac4aad10c61"
+            ]
+          }
     ]
 }
