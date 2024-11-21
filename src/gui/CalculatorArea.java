@@ -125,6 +125,6 @@ public class CalculatorArea extends GridPane {
         this.add(calcButton, 3, 5);
         
         // Set the action listener for the calculate button
-        calcButton.setOnAction(ae -> calcShippingCosts());
+        calcButton.setOnAction(_ -> calcShippingCosts());
     }
 }

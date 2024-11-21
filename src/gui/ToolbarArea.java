@@ -48,7 +48,7 @@ public class ToolbarArea extends ToolBar {
         Button infoButton = new Button("Info");
 
         // add action listeners to the buttons
-        infoButton.setOnAction(e -> showInfoDialog());
+        infoButton.setOnAction(_ -> showInfoDialog());
 
         // add all buttons to the toolbar
         this.getItems().add(settingsButton);
