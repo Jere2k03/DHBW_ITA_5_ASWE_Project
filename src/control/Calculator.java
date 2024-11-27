@@ -1,6 +1,10 @@
 package control;
 
 import data.Packet;
+import data.Importer;
+
+import java.util.List;
+import java.util.ArrayList;
 
 /**
  * This class calculates the shipping costs for a given pack.
@@ -24,6 +28,7 @@ public class Calculator {
 	public double calcShippingCosts(Packet pack) throws PacketValueExceptions {
 		double shippingCosts = 0;
 		int girth;
+		List<Double> shippingCostsList = Importer.importShippingCosts();
 
 		// sort the pack values in ascending order (length -> width -> height)
 		pack = sortPackageValues(pack);
@@ -41,20 +46,20 @@ public class Calculator {
 
 		// calculate the shipping costs in euro
 		if (((pack.length <= 300) && (pack.width <= 300) && (pack.height <= 150)) && (pack.weight <= 1000)) {
-			shippingCosts = 3.89;
+			shippingCosts = shippingCostsList.get(0);
 		}
 		else if (((pack.length <= 600) && (pack.width <= 300) && (pack.height <= 150)) && (pack.weight <= 2000)) {
-			shippingCosts = 4.39;
+			shippingCosts = shippingCostsList.get(1);
 		}
 		else if((pack.length <= 1200) && (pack.width <= 600) && (pack.height <= 600)) {
 			if ((girth <= 3000) && (pack.weight <= 5000)) {
-				shippingCosts = 5.89;
+				shippingCosts = shippingCostsList.get(2);
 			}
 			else if((girth <= 3000) && (pack.weight <= 10000))	{
-				shippingCosts = 7.99;
+				shippingCosts = shippingCostsList.get(3);
 			}
 			else if(pack.weight <= 31000) {
-				shippingCosts = 14.99;
+				shippingCosts = shippingCostsList.get(4);
 			}
 		}
 
