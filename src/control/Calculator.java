@@ -72,6 +72,7 @@ public class Calculator {
 	 */
 	public int calcGirth(int length, int width, int height) {
 
+		@SuppressWarnings({"java:51488"})
 		// calculate the girth measure of the package
 		int girth = (length + 2 * width + 2 * height);
 
