@@ -53,10 +53,10 @@ public class ToolbarArea extends ToolBar {
         Stage dialog = new Stage();
         dialog.initModality(Modality.APPLICATION_MODAL);
         VBox vbox = new VBox(20);
-        Text infoText = new Text("Package Calculator v0.3 \n© 2020 I. Bogicevic \n© 2024 J. Matt");
+        Text infoText = new Text("Package Calculator v0.3 \n\t© 2020 I. Bogicevic \n\t© 2024 J. Matt");
         vbox.getChildren().add(infoText);
         setInfoTable(vbox);
-        Scene dialogScene = new Scene(vbox, 433, 250); //TODO Größe anpassen (nicht kleiner möglich)
+        Scene dialogScene = new Scene(vbox, 433, 216); //TODO Größe anpassen (nicht kleiner möglich)
         dialog.setScene(dialogScene);
         dialog.show();
     }
