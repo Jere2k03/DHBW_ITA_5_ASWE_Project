@@ -12,5 +12,6 @@
         "APPNAME",
         "Bogicevic",
         "jupiter"
-    ]
+    ],
+    "todo-tree.tree.scanMode": "workspace only"
 }
