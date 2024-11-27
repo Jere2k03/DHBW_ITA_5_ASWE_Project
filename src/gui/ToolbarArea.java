@@ -11,6 +11,10 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import java.util.Optional;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TableColumn;
+import javafx.beans.property.SimpleStringProperty;
+
 
 /**
  * The {@code ToolbarArea} class represents the toolbar of the PackageCalculator application.
@@ -51,9 +55,40 @@ public class ToolbarArea extends ToolBar {
         VBox vbox = new VBox(20);
         Text infoText = new Text("Package Calculator v0.3 \n© 2020 I. Bogicevic \n© 2024 J. Matt");
         vbox.getChildren().add(infoText);
-        Scene dialogScene = new Scene(vbox, 400, 250);
+        setInfoTable(vbox);
+        Scene dialogScene = new Scene(vbox, 433, 250); //TODO Größe anpassen (nicht kleiner möglich)
         dialog.setScene(dialogScene);
         dialog.show();
+    }
+
+    /**
+     * Sets the information table for the PackageCalculator application.
+     * @param vbox the VBox to which the table will be added
+     */
+    private void setInfoTable(VBox vbox) {
+        TableView<String[]> table = new TableView<>();
+        TableColumn<String[], String> columnSize = new TableColumn<>("Packetgröße [mm]");
+        TableColumn<String[], String> columnWeight = new TableColumn<>("Packetgewicht [g]");
+        TableColumn<String[], String> columnGirth = new TableColumn<>("Gurtmaß");
+        TableColumn<String[], String> columnPrice = new TableColumn<>("Versandkosten");
+
+        columnSize.setCellValueFactory(data -> new SimpleStringProperty(data.getValue()[0]));
+        columnWeight.setCellValueFactory(data -> new SimpleStringProperty(data.getValue()[1]));
+        columnGirth.setCellValueFactory(data -> new SimpleStringProperty(data.getValue()[2]));
+        columnPrice.setCellValueFactory(data -> new SimpleStringProperty(data.getValue()[3]));
+
+        table.getColumns().add(columnSize);
+        table.getColumns().add(columnWeight);
+        table.getColumns().add(columnGirth);
+        table.getColumns().add(columnPrice);
+
+        table.getItems().add(new String[]{"bis 300x300x150", "bis 1000g", "-", "3,89€"});
+        table.getItems().add(new String[]{"bis 600x300x150", "bis 2000g", "-", "4,39€"});
+        table.getItems().add(new String[]{"bis 1200x600x600", "bis 5000g", "bis 300cm", "5,89€"});
+        table.getItems().add(new String[]{"bis 1200x600x600", "bis 10000g", "bis 300cm", "7,99€"});
+        table.getItems().add(new String[]{"bis 1200x600x600", "bis 31000g", "-", "14,99€"});
+
+        vbox.getChildren().add(table);
     }
 
     /**
