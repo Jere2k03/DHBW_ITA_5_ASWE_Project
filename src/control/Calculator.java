@@ -28,7 +28,7 @@ public class Calculator {
 		// sort the pack values in ascending order (length -> width -> height)
 		pack = sortPackageValues(pack);
 
-		// exception handling of the pack values
+		// exception handling of the pack values //TODO exception auslagern
 		if (((pack.length <= 0) || (pack.width <= 0) || (pack.height <= 0)) || (pack.weight <= 0)) {
 			throw new PacketValueExceptions("The package needs positive values.");
 		}
