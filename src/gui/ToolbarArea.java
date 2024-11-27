@@ -7,6 +7,10 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
+import java.util.Optional;
 
 /**
  * The {@code ToolbarArea} class represents the toolbar of the PackageCalculator application.
@@ -21,6 +25,22 @@ import javafx.stage.Stage;
  * @version 0.1
  */
 public class ToolbarArea extends ToolBar {
+    
+    /**
+     * Exits the PackageCalculator application after displaying a confirmation (YES, NO) dialog.
+     */
+    private void exitPackageCalculator() {
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle("Exit Package Calculator");
+        alert.setHeaderText("Sicher, dass Sie die Anwendung beenden möchten?");
+        alert.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.YES) {
+            System.exit(0);
+        }
+    }
+
     /**
      * Displays an information dialog with details about the PackageCalculator application.
      * This dialog is modal and contains information such as the version and authors.
@@ -43,14 +63,18 @@ public class ToolbarArea extends ToolBar {
      */
     public ToolbarArea() {
         // initialize buttons
+        Button exitButton = new Button("Exit");
         Button settingsButton = new Button("Settings");
         Button aboutButton = new Button("About");
         Button infoButton = new Button("Info");
 
         // add action listeners to the buttons
         infoButton.setOnAction(_ -> showInfoDialog());
+        exitButton.setOnAction(_ -> exitPackageCalculator());
 
         // add all buttons to the toolbar
+        this.getItems().add(exitButton);
+        this.getItems().add(new javafx.scene.control.Separator());
         this.getItems().add(settingsButton);
         this.getItems().add(aboutButton);
         this.getItems().add(infoButton);
