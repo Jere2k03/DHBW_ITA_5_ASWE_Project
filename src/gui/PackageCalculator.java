@@ -9,6 +9,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
+import data.Constants;
+
 /**
  * The {@code PackageCalculator} class represents the main application for calculating
  * shipping costs based on package dimensions. It is a JavaFX application that provides
@@ -30,7 +32,7 @@ public class PackageCalculator extends Application {
     /**
      * The application name, used as the window title.
      */
-    public static final String APPNAME = "PackageCalculator";
+    public static final String APPNAME = Constants.APP_NAME;
     
     // Singleton instance
     private static PackageCalculator instance;
@@ -47,9 +49,7 @@ public class PackageCalculator extends Application {
     // GUI areas
     public static final ToolbarArea toolbarArea = new ToolbarArea();
     public static final CalculatorArea calculatorArea = new CalculatorArea();
-    public static final InspectorArea inspectorArea = new InspectorArea();
     public static final MessagesArea messagesArea = new MessagesArea();
-    public static final StatusArea statusArea = new StatusArea();
 
     // Primary stage reference
     private Stage primaryStage;
@@ -72,15 +72,12 @@ public class PackageCalculator extends Application {
      */
     @Override
     public void start(Stage primaryStage) {
-        // Set the singleton instance
-        PackageCalculator.instance = this;
-
         // Remember the primary stage for further use
         this.primaryStage = primaryStage;
 
         // Create a horizontal split pane for calculator and inspector areas
         SplitPane lr2SplitPane = new SplitPane();
-        lr2SplitPane.getItems().addAll(calculatorArea, inspectorArea);
+        lr2SplitPane.getItems().addAll(calculatorArea);
         lr2SplitPane.setDividerPositions(0.8f, 0.2f);
         
         // Create a vertical split pane for the editor/inspector and messages areas
@@ -93,7 +90,6 @@ public class PackageCalculator extends Application {
         BorderPane mainPane = new BorderPane();
         mainPane.setTop(toolbarArea);
         mainPane.setCenter(tdSplitPane);
-        mainPane.setBottom(statusArea);
 
         // Show the main pane on the primary stage
         Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
@@ -105,7 +101,7 @@ public class PackageCalculator extends Application {
 
     /**
      * The main method, which serves as the entry point for the Java application.
-     * It launches the JavaFX application by calling the {@link Application#launch(String...)} method.
+     * It launches the JavaFX application.
      * 
      * @param args the command line arguments passed to the application
      * @author Jeremias

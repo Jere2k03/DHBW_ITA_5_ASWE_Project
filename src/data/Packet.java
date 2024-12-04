@@ -8,24 +8,12 @@ package data;
 public class Packet {
 
     /**
-     * The length of the package in millimeters.
+     * The dimensions and weight of the package.
      */
-    public int length;
-
-    /**
-     * The width of the package in millimeters.
-     */
-    public int width;
-    
-    /**
-     * The height of the package in millimeters.
-     */
-    public int height;
-    
-    /**
-     * The weight of the package in grams.
-     */
-    public int weight;
+    private int length;
+    private int width;
+    private int height;
+    private int weight;
 
     /**
      * Constructs a new Packet object with the specified dimensions and weight.
@@ -42,4 +30,76 @@ public class Packet {
         this.weight = weight;
     }
     
+
+    /**
+     * Returns the length of the package in millimeters.
+     *
+     * @return The length of the package in millimeters
+     */
+    public int getLength() {
+        return length;
+    }
+
+    /**
+     * Returns the width of the package in millimeters.
+     *
+     * @return The width of the package in millimeters
+     */
+    public int getWidth() {
+        return width;
+    }
+
+    /**
+     * Returns the height of the package in millimeters.
+     *
+     * @return The height of the package in millimeters
+     */
+    public int getHeight() {
+        return height;
+    }
+
+    /**
+     * Returns the weight of the package in grams.
+     *
+     * @return The weight of the package in grams
+     */
+    public int getWeight() {
+        return weight;
+    }
+
+    /**
+     * Sets the length of the package in millimeters.
+     *
+     * @param length The new length of the package in millimeters
+     */
+    public void setLength(int length) {
+        this.length = length;
+    }
+
+    /**
+     * Sets the width of the package in millimeters.
+     *
+     * @param width The new width of the package in millimeters
+     */
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    /**
+     * Sets the height of the package in millimeters.
+     *
+     * @param height The new height of the package in millimeters
+     */
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    /**
+     * Sets the weight of the package in grams.
+     *
+     * @param weight The new weight of the package in grams
+     */
+    public void setWeight(int weight) {
+        this.weight = weight;
+    }
 }

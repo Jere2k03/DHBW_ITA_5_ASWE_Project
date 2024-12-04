@@ -1,6 +1,8 @@
 package gui;
 
+import data.Constants;
 import javafx.scene.control.ListView;
+import javafx.scene.control.Tooltip;
 
 /**
  * This class represents the messages area of the application.
@@ -15,7 +17,9 @@ public class MessagesArea extends ListView<String> {
      * Sets a welcome message.
      */
     public MessagesArea() {
-        this.getItems().add("Herzlich Willkommen zum PackageCalculator! \nBitte geben Sie die Maße Ihres Pakets ein.");
+        this.getItems().add(Constants.WELCOME_MSG);
+        this.setTooltip(new Tooltip(Constants.TOOLTIP_MSGAREA));
+        this.setStyle(Constants.STYLE_MSGAREA);
     }
 
     /**
