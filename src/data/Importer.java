@@ -40,7 +40,7 @@ public class Importer {
      */
     public static List<Double> importShippingCosts() throws CSVWrongFormatException {
         if (!new File(path).exists()) {
-            throw new CSVWrongFormatException(Constants.CSV_FILE_NOT_FOUND);
+            throw new CSVWrongFormatException(Constants.Exceptions.CSV_FILE_NOT_FOUND);
         }
 
         try (BufferedReader csvReader = new BufferedReader(new FileReader(path))) {
@@ -48,16 +48,16 @@ public class Importer {
             String row = csvReader.readLine();
 
             if (row != null) {
-                String[] values = row.split(Constants.CSV_DELIMITER);
+                String[] values = row.split(Constants.Symbols.CSV_DELIMITER);
                 // Check if the first row has the correct format
                 if (values.length != 5 || !checkArrayForNumeric(values)) {
-                    throw new IOException(Constants.CSV_FILE_WRONG_FORMAT);
+                    throw new IOException(Constants.Exceptions.CSV_FILE_WRONG_FORMAT);
                 }
                 for (String value : values) {
                     shippingCosts.add(Double.parseDouble(value));
                 }
             } else {
-                throw new IOException(Constants.CSV_FILE_EMPTY);
+                throw new IOException(Constants.Exceptions.CSV_FILE_EMPTY);
             }
             return shippingCosts;
         } catch (IOException e) {

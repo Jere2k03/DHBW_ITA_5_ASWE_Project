@@ -32,7 +32,7 @@ public class PackageCalculator extends Application {
     /**
      * The application name, used as the window title.
      */
-    public static final String APPNAME = Constants.APP_NAME;
+    public static final String APPNAME = Constants.Labels.APP_NAME;
     
     // Singleton instance
     private static PackageCalculator instance;

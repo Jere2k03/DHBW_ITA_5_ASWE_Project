@@ -39,7 +39,7 @@ public class Calculator {
 
 		try	{
 			// set the path of the csv file
-			Importer.setPath(Constants.SHIPPING_COSTS_FILE);
+			Importer.setPath(Constants.FilePaths.SHIPPING_COSTS_FILE);
 			shippingCostsList = Importer.importShippingCosts();
 		}
 		catch (CSVWrongFormatException e) {
@@ -175,10 +175,10 @@ public class Calculator {
 	private void checkBoundsAndValues(Packet pack) throws PacketOutOfBoundsException {
 		// Check if the values are positive and within the allowed range
 		if (((pack.getLength() <= 0) || (pack.getWidth() <= 0) || (pack.getHeight() <= 0)) || (pack.getWeight() <= 0)) {
-			throw new PacketOutOfBoundsException(Constants.NO_NEGATIVE_VALUES_MSG);
+			throw new PacketOutOfBoundsException(Constants.Exceptions.NO_NEGATIVE_VALUES_MSG);
 		}
 		if (((pack.getLength() > 1200) || (pack.getWidth() > 600) || (pack.getHeight() > 600)) || (pack.getWeight() > 31000))	{
-			throw new PacketOutOfBoundsException(Constants.INVALID_DIMENSIONS_MSG);
+			throw new PacketOutOfBoundsException(Constants.Exceptions.INVALID_DIMENSIONS_MSG);
 		}
 	}
 

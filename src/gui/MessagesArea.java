@@ -17,9 +17,9 @@ public class MessagesArea extends ListView<String> {
      * Sets a welcome message.
      */
     public MessagesArea() {
-        this.getItems().add(Constants.WELCOME_MSG);
-        this.setTooltip(new Tooltip(Constants.TOOLTIP_MSGAREA));
-        this.setStyle(Constants.STYLE_MSGAREA);
+        this.getItems().add(Constants.Messages.WELCOME_MSG);
+        this.setTooltip(new Tooltip(Constants.Tooltips.TOOLTIP_MSGAREA));
+        this.setStyle(Constants.Styles.STYLE_MSGAREA);
     }
 
     /**

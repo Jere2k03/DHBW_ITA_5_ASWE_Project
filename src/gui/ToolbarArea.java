@@ -47,8 +47,8 @@ public class ToolbarArea extends ToolBar {
      */
     private void exitPackageCalculator() {
         Alert alert = new Alert(AlertType.CONFIRMATION);
-        alert.setTitle(Constants.EXIT_DIALOG_TITLE);
-        alert.setHeaderText(Constants.EXIT_DIALOG_HEADER);
+        alert.setTitle(Constants.Dialogs.EXIT_DIALOG_TITLE);
+        alert.setHeaderText(Constants.Dialogs.EXIT_DIALOG_HEADER);
         alert.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
 
         Optional<ButtonType> result = alert.showAndWait();
@@ -63,7 +63,7 @@ public class ToolbarArea extends ToolBar {
      */
     private void showInfoDialog() {
         Stage infoStage = new Stage();
-        infoStage.setTitle(Constants.INFO_TITLE);
+        infoStage.setTitle(Constants.Dialogs.INFO_TITLE);
         infoStage.initModality(Modality.APPLICATION_MODAL);
         VBox vbox = new VBox(20);
         try {
@@ -71,12 +71,12 @@ public class ToolbarArea extends ToolBar {
         } catch (CSVWrongFormatException e) {
             // show error messsage as alert
             Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle(Constants.ERROR_DIALOG_TITLE);
-            alert.setHeaderText(Constants.INFO_ERROR_DIALOG_HEADER);
-            alert.setContentText(Constants.INFO_ERROR_DIALOG_CONTENT);
+            alert.setTitle(Constants.Dialogs.ERROR_DIALOG_TITLE);
+            alert.setHeaderText(Constants.Dialogs.INFO_ERROR_DIALOG_HEADER);
+            alert.setContentText(Constants.Dialogs.INFO_ERROR_DIALOG_CONTENT);
             alert.showAndWait();
         }
-        Text infoText = new Text(Constants.INFO_TEXT);
+        Text infoText = new Text(Constants.Metadata.INFO_TEXT);
         vbox.getChildren().add(infoText);
         Scene infoScene = new Scene(vbox, 495, 216);
         infoStage.setResizable(false); // make the dialog non-resizable
@@ -91,7 +91,7 @@ public class ToolbarArea extends ToolBar {
     private void setInfoTable(VBox vbox) throws CSVWrongFormatException {
         List<Double> shippingCostsList = new ArrayList<>();
         try	{
-            Importer.setPath(Constants.SHIPPING_COSTS_FILE);
+            Importer.setPath(Constants.FilePaths.SHIPPING_COSTS_FILE);
 			shippingCostsList = Importer.importShippingCosts();
 		}
 		catch (CSVWrongFormatException e) {
@@ -100,10 +100,10 @@ public class ToolbarArea extends ToolBar {
 
         // create table
         TableView<String[]> table = new TableView<>();
-        TableColumn<String[], String> columnSize = new TableColumn<>(Constants.PACKET_SIZE_HEADER);
-        TableColumn<String[], String> columnWeight = new TableColumn<>(Constants.PACKET_WEIGHT_HEADER);
-        TableColumn<String[], String> columnGirth = new TableColumn<>(Constants.GIRTH_HEADER);
-        TableColumn<String[], String> columnPrice = new TableColumn<>(Constants.SHIPPING_COSTS_HEADER);
+        TableColumn<String[], String> columnSize = new TableColumn<>(Constants.TableHeaders.PACKET_SIZE_HEADER);
+        TableColumn<String[], String> columnWeight = new TableColumn<>(Constants.TableHeaders.PACKET_WEIGHT_HEADER);
+        TableColumn<String[], String> columnGirth = new TableColumn<>(Constants.TableHeaders.GIRTH_HEADER);
+        TableColumn<String[], String> columnPrice = new TableColumn<>(Constants.TableHeaders.SHIPPING_COSTS_HEADER);
 
         // set cell value factories
         columnSize.setCellValueFactory(data -> new SimpleStringProperty(data.getValue()[0]));
@@ -119,34 +119,34 @@ public class ToolbarArea extends ToolBar {
 
         // add data to table
         table.getItems().add(new String[]{
-            Constants.SMALL_PACKET_SIZE,
-            Constants.PACKET_WEIGHT_1000,
-            Constants.NO_GIRTH,
-            shippingCostsList.get(0).toString() + Constants.EURO
+            Constants.Measurements.SMALL_PACKET_SIZE,
+            Constants.Measurements.PACKET_WEIGHT_1000,
+            Constants.Measurements.NO_GIRTH,
+            shippingCostsList.get(0).toString() + Constants.Symbols.EURO
         });
         table.getItems().add(new String[]{
-            Constants.MEDIUM_PACKET_SIZE,
-            Constants.PACKET_WEIGHT_2000,
-            Constants.NO_GIRTH,
-            shippingCostsList.get(1).toString() + Constants.EURO
+            Constants.Measurements.MEDIUM_PACKET_SIZE,
+            Constants.Measurements.PACKET_WEIGHT_2000,
+            Constants.Measurements.NO_GIRTH,
+            shippingCostsList.get(1).toString() + Constants.Symbols.EURO
         });
         table.getItems().add(new String[]{
-            Constants.BIG_PACKET_SIZE, 
-            Constants.PACKET_WEIGHT_5000, 
-            Constants.GIRTH_SIZE, 
-            shippingCostsList.get(2).toString() + Constants.EURO
+            Constants.Measurements.BIG_PACKET_SIZE, 
+            Constants.Measurements.PACKET_WEIGHT_5000, 
+            Constants.Measurements.GIRTH_SIZE, 
+            shippingCostsList.get(2).toString() + Constants.Symbols.EURO
         });
         table.getItems().add(new String[]{
-            Constants.BIG_PACKET_SIZE, 
-            Constants.PACKET_WEIGHT_10000, 
-            Constants.GIRTH_SIZE,
-            shippingCostsList.get(3).toString() + Constants.EURO
+            Constants.Measurements.BIG_PACKET_SIZE, 
+            Constants.Measurements.PACKET_WEIGHT_10000, 
+            Constants.Measurements.GIRTH_SIZE,
+            shippingCostsList.get(3).toString() + Constants.Symbols.EURO
         });
         table.getItems().add(new String[]{
-            Constants.BIG_PACKET_SIZE, 
-            Constants.PACKET_WEIGHT_31000,
-            Constants.NO_GIRTH,
-            shippingCostsList.get(4).toString() + Constants.EURO
+            Constants.Measurements.BIG_PACKET_SIZE, 
+            Constants.Measurements.PACKET_WEIGHT_31000,
+            Constants.Measurements.NO_GIRTH,
+            shippingCostsList.get(4).toString() + Constants.Symbols.EURO
         });
 
         vbox.getChildren().add(table);
@@ -157,21 +157,21 @@ public class ToolbarArea extends ToolBar {
      */
     private void openProjectRepo() {
         Alert alert = new Alert(AlertType.CONFIRMATION);
-        alert.setTitle(Constants.ABOUT_TITLE);
-        alert.setHeaderText(Constants.ABOUT_HEADER);
+        alert.setTitle(Constants.Dialogs.ABOUT_TITLE);
+        alert.setHeaderText(Constants.Dialogs.ABOUT_HEADER);
         alert.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.YES) {
             try {
-                java.awt.Desktop.getDesktop().browse(new java.net.URI(Constants.PROJECT_REPO_URI));
+                java.awt.Desktop.getDesktop().browse(new java.net.URI(Constants.Metadata.PROJECT_REPO_URI));
             }
             catch (IOException | URISyntaxException e) {
                 // show error messsage as alert
                 Alert errorAlert = new Alert(AlertType.ERROR);
-                errorAlert.setTitle(Constants.ERROR_DIALOG_TITLE);
-                errorAlert.setHeaderText(Constants.ABOUT_ERROR_HEADER);
-                errorAlert.setContentText(Constants.ABOUT_ERROR_CONTENT);
+                errorAlert.setTitle(Constants.Dialogs.ERROR_DIALOG_TITLE);
+                errorAlert.setHeaderText(Constants.Dialogs.ABOUT_ERROR_HEADER);
+                errorAlert.setContentText(Constants.Dialogs.ABOUT_ERROR_CONTENT);
                 errorAlert.showAndWait();
             }
         }
@@ -182,7 +182,7 @@ public class ToolbarArea extends ToolBar {
      */
     private void openSettingsWindow() {
         Stage settingsStage = new Stage();
-        settingsStage.setTitle(Constants.SETTINGS_TITLE);
+        settingsStage.setTitle(Constants.Dialogs.SETTINGS_TITLE);
         settingsStage.initModality(Modality.APPLICATION_MODAL);
         Pane pane = new Pane();
         Scene settingsScene = new Scene(pane, 433, 216);
@@ -206,7 +206,7 @@ public class ToolbarArea extends ToolBar {
         Button newButton = new Button();
 
         // Set icon for the button
-        ImageView icon = new ImageView(new Image(Constants.DARKMODE_ICON_PATH));
+        ImageView icon = new ImageView(new Image(Constants.FilePaths.DARKMODE_ICON_PATH));
         icon.setFitHeight(30); // set height of the icon
         icon.setFitWidth(30); // set width of the icon
         newButton.setGraphic(icon);
@@ -226,13 +226,13 @@ public class ToolbarArea extends ToolBar {
      */
     public ToolbarArea() {
         // initialize buttons with clean UI
-        Button exitButton = new Button(Constants.EXIT_BUTTON);
-        Button settingsButton = new Button(Constants.SETTINGS_BUTTON);
-        Button aboutButton = new Button(Constants.ABOUT_BUTTON);
-        Button infoButton = new Button(Constants.INFO_BUTTON);
+        Button exitButton = new Button(Constants.Buttons.EXIT_BUTTON);
+        Button settingsButton = new Button(Constants.Buttons.SETTINGS_BUTTON);
+        Button aboutButton = new Button(Constants.Buttons.ABOUT_BUTTON);
+        Button infoButton = new Button(Constants.Buttons.INFO_BUTTON);
 
         // apply CSS styles for a cleaner UI
-        String buttonStyle = Constants.STYLE_BTN_CALCAREA;
+        String buttonStyle = Constants.Styles.STYLE_BTN_CALCAREA;
         exitButton.setStyle(buttonStyle);
         settingsButton.setStyle(buttonStyle);
         aboutButton.setStyle(buttonStyle);
@@ -251,7 +251,7 @@ public class ToolbarArea extends ToolBar {
 
         // add all buttons to the toolbar
         ImageView packageIcon = new ImageView();
-        Image image = new Image(Constants.ICON_PATH);
+        Image image = new Image(Constants.FilePaths.ICON_PATH);
         packageIcon.setImage(image);
         packageIcon.setFitHeight(30);
         packageIcon.setFitWidth(30);
@@ -263,9 +263,9 @@ public class ToolbarArea extends ToolBar {
         this.getItems().add(infoButton);
 
         // add tooltips to the buttons
-        exitButton.setTooltip(new Tooltip(Constants.TOOLTIP_EXIT_BTN));
-        settingsButton.setTooltip(new Tooltip(Constants.TOOLTIP_SETTINGS_BTN));
-        aboutButton.setTooltip(new Tooltip(Constants.TOOLTIP_ABOUT_BTN));
-        infoButton.setTooltip(new Tooltip(Constants.TOOLTIP_INFO_BTN));
+        exitButton.setTooltip(new Tooltip(Constants.Tooltips.TOOLTIP_EXIT_BTN));
+        settingsButton.setTooltip(new Tooltip(Constants.Tooltips.TOOLTIP_SETTINGS_BTN));
+        aboutButton.setTooltip(new Tooltip(Constants.Tooltips.TOOLTIP_ABOUT_BTN));
+        infoButton.setTooltip(new Tooltip(Constants.Tooltips.TOOLTIP_INFO_BTN));
     }
 }
