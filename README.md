@@ -38,10 +38,10 @@ By hovering over not-understandable buttons or labels, a short description (tool
 
 ## Metrics
 The metrics were captured using [Sonar](https://www.sonarqube.org/) and the [SonarQube Extension](https://marketplace.visualstudio.com/items?itemName=SonarSource.sonarlint-vscode) in VSCode. <br>
-All necessary screenshots can be found in the `misc/metrics`-folder.
+All necessary screenshots can be found in the [`misc/metrics`](misc/metrics)-folder.
 
 ## Coverage
-The Coverage screenshots of the Glass-box-tests can be found in the `misc/coverage`-folder.
+The Coverage screenshots of the Glass-box-tests can be found in the [`misc/coverage`](misc/coverage)-folder.
 
 ## Things that didn't work out
 1. Add the `test`-package to JavaDoc, because of an error in VS Code

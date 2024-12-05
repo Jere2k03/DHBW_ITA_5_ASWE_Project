@@ -62,8 +62,9 @@ public class ToolbarArea extends ToolBar {
      * This dialog is modal and contains information such as the version and authors.
      */
     private void showInfoDialog() {
-        Stage dialog = new Stage();
-        dialog.initModality(Modality.APPLICATION_MODAL);
+        Stage infoStage = new Stage();
+        infoStage.setTitle(Constants.INFO_TITLE);
+        infoStage.initModality(Modality.APPLICATION_MODAL);
         VBox vbox = new VBox(20);
         try {
             setInfoTable(vbox);
@@ -77,10 +78,10 @@ public class ToolbarArea extends ToolBar {
         }
         Text infoText = new Text(Constants.INFO_TEXT);
         vbox.getChildren().add(infoText);
-        Scene dialogScene = new Scene(vbox, 495, 216);
-        dialog.setResizable(false); // make the dialog non-resizable
-        dialog.setScene(dialogScene);
-        dialog.show();
+        Scene infoScene = new Scene(vbox, 495, 216);
+        infoStage.setResizable(false); // make the dialog non-resizable
+        infoStage.setScene(infoScene);
+        infoStage.show();
     }
 
     /**
@@ -180,19 +181,20 @@ public class ToolbarArea extends ToolBar {
      * Opens the settings window.
      */
     private void openSettingsWindow() {
-        Stage dialog = new Stage();
-        dialog.initModality(Modality.APPLICATION_MODAL);
+        Stage settingsStage = new Stage();
+        settingsStage.setTitle(Constants.SETTINGS_TITLE);
+        settingsStage.initModality(Modality.APPLICATION_MODAL);
         Pane pane = new Pane();
-        Scene dialogScene = new Scene(pane, 433, 216);
-        dialog.setMinWidth(433); // set min width
-        dialog.setMinHeight(216); // set min height
-        dialog.setScene(dialogScene);
+        Scene settingsScene = new Scene(pane, 433, 216);
+        settingsStage.setMinWidth(433); // set min width
+        settingsStage.setMinHeight(216); // set min height
+        settingsStage.setScene(settingsScene);
 
         // different Buttons for settings
         // TODO: the idea is to have several buttons for different settings, i.e dark mode, language, etc.
         darkModeToggleButton(pane);
 
-        dialog.show();
+        settingsStage.show();
     }
 
     /**

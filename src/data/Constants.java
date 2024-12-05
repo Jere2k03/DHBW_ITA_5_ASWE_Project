@@ -22,6 +22,12 @@ public class Constants {
     /** stly of Button in CalcArea */
     public static final String CALCBUTTON_STYLE = "-fx-background-color: #2596be; -fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold; -fx-padding: 10px 20px;";
 
+    /** Text for Title in Info-Window */
+    public static final String INFO_TITLE = "Info";
+
+    /** Text for Title in Settings-Window */
+    public static final String SETTINGS_TITLE = "Settings";
+
     /** Text of the "Calculate"-Button */
     public static final String CALCULATE_BUTTON = "Calculate";
 
