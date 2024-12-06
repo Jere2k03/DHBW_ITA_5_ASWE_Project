@@ -1,5 +1,9 @@
 package gui;
 
+import data.Importer;
+import data.Exceptions.CSVWrongFormatException;
+import data.Constants;
+
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToolBar;
@@ -17,25 +21,18 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.control.Tooltip;
-
-import data.Importer;
-import data.Exceptions.CSVWrongFormatException;
-import data.Constants;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TableColumn;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 
 
 /**
  * The {@code ToolbarArea} class represents the toolbar of the PackageCalculator application.
- * It contains buttons for various actions like opening a project, creating a new file, saving files,
- * and displaying information about the application.
- * <p>
- * This class extends JavaFX's {@link ToolBar} and provides buttons with associated action listeners 
- * to interact with the rest of the application.
- * </p>
+ * It contains buttons for various actions like opening the settings, showing information, opening the project repo, and exiting the
+ * application.
  * 
  * @author Jeremias Matt
  * @version 0.1
@@ -63,9 +60,11 @@ public class ToolbarArea extends ToolBar {
      */
     private void showInfoDialog() {
         Stage infoStage = new Stage();
+        VBox vbox = new VBox(20);
+
         infoStage.setTitle(Constants.Dialogs.INFO_TITLE);
         infoStage.initModality(Modality.APPLICATION_MODAL);
-        VBox vbox = new VBox(20);
+        
         try {
             setInfoTable(vbox);
         } catch (CSVWrongFormatException e) {
@@ -76,6 +75,7 @@ public class ToolbarArea extends ToolBar {
             alert.setContentText(Constants.Dialogs.INFO_ERROR_DIALOG_CONTENT);
             alert.showAndWait();
         }
+
         Text infoText = new Text(Constants.Metadata.INFO_TEXT);
         vbox.getChildren().add(infoText);
         Scene infoScene = new Scene(vbox, 495, 216);
@@ -86,10 +86,14 @@ public class ToolbarArea extends ToolBar {
 
     /**
      * Sets the information table for the PackageCalculator application.
+     * 
      * @param vbox the VBox to which the table will be added
+     * @throws CSVWrongFormatException if the csv file cannot be found or read or has the wrong format
      */
     private void setInfoTable(VBox vbox) throws CSVWrongFormatException {
         List<Double> shippingCostsList = new ArrayList<>();
+
+        // uses the Importer class to import the shipping costs
         try	{
             Importer.setPath(Constants.FilePaths.SHIPPING_COSTS_FILE);
 			shippingCostsList = Importer.importShippingCosts();
@@ -162,6 +166,7 @@ public class ToolbarArea extends ToolBar {
         alert.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
 
         Optional<ButtonType> result = alert.showAndWait();
+
         if (result.isPresent() && result.get() == ButtonType.YES) {
             try {
                 java.awt.Desktop.getDesktop().browse(new java.net.URI(Constants.Metadata.PROJECT_REPO_URI));
@@ -180,18 +185,22 @@ public class ToolbarArea extends ToolBar {
     /**
      * Opens the settings window.
      */
+    @SuppressWarnings("java:S1135")
     private void openSettingsWindow() {
+        final int minWidth = 433;
+        final int minHeight = 216;
         Stage settingsStage = new Stage();
         settingsStage.setTitle(Constants.Dialogs.SETTINGS_TITLE);
         settingsStage.initModality(Modality.APPLICATION_MODAL);
         Pane pane = new Pane();
-        Scene settingsScene = new Scene(pane, 433, 216);
-        settingsStage.setMinWidth(433); // set min width
-        settingsStage.setMinHeight(216); // set min height
+        Scene settingsScene = new Scene(pane, minWidth, minHeight);
+        settingsStage.setMinWidth(minWidth); // set min width
+        settingsStage.setMinHeight(minHeight); // set min height
         settingsStage.setScene(settingsScene);
 
         // different Buttons for settings
-        // TODO: the idea is to have several buttons for different settings, i.e dark mode, language, etc.
+        // TODO: the idea is to have several buttons for different settings, i.e dark mode, language, etc. 
+        // Right now, only the dark mode button is implemented as a mock object for demonstration purposes.
         darkModeToggleButton(pane);
 
         settingsStage.show();
@@ -200,6 +209,7 @@ public class ToolbarArea extends ToolBar {
     /**
      * This button can toggle between dark and white mode of the system.
      * It's only for demonstration purposes and doesn't work yet.
+     * 
      * @param pane the pane to which the button will be added
      */
     private void darkModeToggleButton(Pane pane) {
@@ -225,31 +235,45 @@ public class ToolbarArea extends ToolBar {
      * specific tasks such as opening a project, creating a new file, or displaying the info dialog.
      */
     public ToolbarArea() {
-        // initialize buttons with clean UI
+        // initialize all buttons for ToolbarArea
         Button exitButton = new Button(Constants.Buttons.EXIT_BUTTON);
         Button settingsButton = new Button(Constants.Buttons.SETTINGS_BUTTON);
         Button aboutButton = new Button(Constants.Buttons.ABOUT_BUTTON);
         Button infoButton = new Button(Constants.Buttons.INFO_BUTTON);
 
-        // apply CSS styles for a cleaner UI
-        String buttonStyle = Constants.Styles.STYLE_BTN_CALCAREA;
-        exitButton.setStyle(buttonStyle);
-        settingsButton.setStyle(buttonStyle);
-        aboutButton.setStyle(buttonStyle);
-        infoButton.setStyle(buttonStyle);
+        // Set button size and styling directly
+        double buttonWidth = 120;
+        double buttonHeight = 40;
 
-        // set button sizes for uniformity
-        exitButton.setPrefWidth(130);
-        settingsButton.setPrefWidth(130);
-        aboutButton.setPrefWidth(130);
-        infoButton.setPrefWidth(130);
-        // add action listeners to the buttons
+        // button style for all buttons
+        exitButton.setStyle(Constants.Styles.STYLE_BTN_TBAREA);
+        settingsButton.setStyle(Constants.Styles.STYLE_BTN_TBAREA);
+        aboutButton.setStyle(Constants.Styles.STYLE_BTN_TBAREA);
+        infoButton.setStyle(Constants.Styles.STYLE_BTN_TBAREA);
+
+        // Set button sizes
+        exitButton.setPrefWidth(buttonWidth);
+        exitButton.setPrefHeight(buttonHeight);
+        settingsButton.setPrefWidth(buttonWidth);
+        settingsButton.setPrefHeight(buttonHeight);
+        aboutButton.setPrefWidth(buttonWidth);
+        aboutButton.setPrefHeight(buttonHeight);
+        infoButton.setPrefWidth(buttonWidth);
+        infoButton.setPrefHeight(buttonHeight);
+
+        // button hover effect
+        applyHoverEffect(exitButton);
+        applyHoverEffect(settingsButton);
+        applyHoverEffect(aboutButton);
+        applyHoverEffect(infoButton);
+
+        // action listeners for the buttons
         exitButton.setOnAction(_ -> exitPackageCalculator());
         settingsButton.setOnAction(_ -> openSettingsWindow());
         aboutButton.setOnAction(_ -> openProjectRepo());
         infoButton.setOnAction(_ -> showInfoDialog());
 
-        // add all buttons to the toolbar
+        // add buttons in the toolbar
         ImageView packageIcon = new ImageView();
         Image image = new Image(Constants.FilePaths.ICON_PATH);
         packageIcon.setImage(image);
@@ -262,10 +286,23 @@ public class ToolbarArea extends ToolBar {
         this.getItems().add(aboutButton);
         this.getItems().add(infoButton);
 
-        // add tooltips to the buttons
+        // Add tooltips to the buttons
         exitButton.setTooltip(new Tooltip(Constants.Tooltips.TOOLTIP_EXIT_BTN));
         settingsButton.setTooltip(new Tooltip(Constants.Tooltips.TOOLTIP_SETTINGS_BTN));
         aboutButton.setTooltip(new Tooltip(Constants.Tooltips.TOOLTIP_ABOUT_BTN));
         infoButton.setTooltip(new Tooltip(Constants.Tooltips.TOOLTIP_INFO_BTN));
+    }
+
+    /**
+     * This method applies a hover effect to the button, changing the background color.
+     */
+    private void applyHoverEffect(Button button) {
+        button.addEventHandler(MouseEvent.MOUSE_ENTERED, (MouseEvent _) -> 
+            button.setStyle(button.getStyle() + Constants.Styles.STYLE_BTN_HOVER_TBAREA)
+        );
+
+        button.addEventHandler(MouseEvent.MOUSE_EXITED, (MouseEvent _) -> 
+            button.setStyle(button.getStyle().replace(Constants.Styles.STYLE_BTN_HOVER_TBAREA, Constants.Styles.STYLE_BTN_TBAREA))
+        );
     }
 }

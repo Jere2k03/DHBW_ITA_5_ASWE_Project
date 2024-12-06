@@ -1,11 +1,15 @@
 package test.control;
 
-import static org.junit.jupiter.api.Assertions.*;
+import control.Calculator;
+import control.Exceptions.PacketOutOfBoundsException;
+import data.Importer;
+import data.Packet;
+import data.Exceptions.CSVWrongFormatException;
 
+import static org.junit.jupiter.api.Assertions.*;
 import java.util.stream.Stream;
 import java.util.Random;
 import java.util.List;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -15,17 +19,15 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import control.Calculator;
-import data.Importer;
-import data.Packet;
-import data.Exceptions.CSVWrongFormatException;
-import control.Exceptions.PacketOutOfBoundsException;
+
 
 /**
- * The {@code TestCalculator} class tests the {@link Calculator} class for calculating
+ * The {@code TestCalculator} class tests the {@link Calculator} class for calculating the shipping costs of a packet and also for edge cases
+ * and throws exceptions.
  */
 class TestCalculator {
 
+    /** instance of Random for Exercise 8 */
     private static final Random RANDOM = new Random();
 
     @BeforeAll
@@ -90,9 +92,15 @@ class TestCalculator {
     }
     @ParameterizedTest
     @MethodSource("realPacketDataStream")
+    /**
+     * Test for different Packet objects with their expected shipping costs
+     * 
+     * @param pack Packet object
+     * @param expectedCosts expected shipping costs
+     */
     public void testRealPackets(Packet pack, double expectedCosts) {
         Calculator calc = new Calculator();
-        double delta = 1e-5;
+        double delta = 1e-5; // delta for double value comparison
         try {
             double shippingCosts = calc.calcShippingCosts(pack);
             assertEquals(expectedCosts, shippingCosts, delta, "Shipping costs are not correct");
@@ -103,6 +111,7 @@ class TestCalculator {
 
     /**
      * Test for a Packet with all values set to 0
+     * This test need to throw a PacketOutOfBoundsException
      */
     @Test
     public void testZeroValuePacket() {
@@ -113,6 +122,7 @@ class TestCalculator {
 
     /**
      * Test for a Packet with all values out of bounds
+     * This test need to throw a PacketOutOfBoundsException
      */
     @Test
     public void testOutOfBoundsPacket() {
@@ -122,6 +132,12 @@ class TestCalculator {
     }
 
     //Aufgabe 8
+    /**
+     * Recheck if the calculated costs are correct, with new logic
+     * @param pack Packet object
+     * @param costs expected shipping costs
+     * @return true if the calculated costs are correct, false otherwise
+     */
     private boolean checkRandomPacketForCosts(Packet pack, double costs) {
         final List<Double> shippingCostsList;
         try {
@@ -153,24 +169,51 @@ class TestCalculator {
         return false;
     }
     
+    /**
+     * Check if the small packet is in bounds
+     * 
+     * @param pack Packet object
+     * @return true if the small packet is in bounds, false otherwise
+     */
     private boolean isSmallPacketInBounds(Packet pack) {
         return pack.getLength() <= 300 && pack.getWidth() <= 300 
             && pack.getHeight() <= 150 && pack.getWeight() <= 1000;
     }
     
+    /**
+     * Check if the medium packet is in bounds
+     * 
+     * @param pack Packet object
+     * @return true if the medium packet is in bounds, false otherwise
+     */
     private boolean isMediumPacketInBounds(Packet pack) {
         return pack.getLength() <= 600 && pack.getWidth() <= 300 
             && pack.getHeight() <= 150 && pack.getWeight() <= 2000;
     }
     
+    /**
+     * Check if the large packet is in bounds
+     * 
+     * @param pack Packet object
+     * @param maxWeight maximum weight for the large packet
+     * @return true if the large packet is in bounds, false otherwise
+     */
     private boolean isLargePacketInBounds(Packet pack, int maxWeight) {
         if (pack.getLength() > 1200 || pack.getWidth() > 600 || pack.getHeight() > 600) {
             return false;
         }
+
         int girth = pack.getLength() + 2 * pack.getWidth() + 2 * pack.getHeight();
+
         return girth <= 3000 && pack.getWeight() <= maxWeight;
     }
     
+    /**
+     * Check if the extra large packet is in bounds
+     * 
+     * @param pack Packet object
+     * @return true if the extra large packet is in bounds, false otherwise
+     */
     private boolean isExtraLargePacketInBounds(Packet pack) {
         return pack.getLength() <= 1200 && pack.getWidth() <= 600 
             && pack.getHeight() <= 600 && pack.getWeight() <= 31000;
@@ -200,6 +243,12 @@ class TestCalculator {
     }
     @ParameterizedTest
     @MethodSource("randomPacketsStream")
+    /**
+     * Test for 1000 Random Packet objects
+     * If the calculated costs are correct, the test will pass
+     * If the packet is out of bounds, the test will check if the exception is thrown
+     * @param pack Packet object
+     */
     public void testRandomPackets(Packet pack) {
         Calculator calc = new Calculator();
         try {

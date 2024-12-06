@@ -2,9 +2,8 @@ package data;
 
 /**
  * The {@code Exceptions} class provides custom exception classes for the data package.
- * The exceptions are:
- *  - {@link CSVWrongFormatException} ...
- *  - {@link CSVNotFoundException} ...
+ * The exception is:
+ *  - {@link CSVWrongFormatException} which is thrown when the CSV file is not found, or has the wrong format.
  * 
  */
 public class Exceptions {
@@ -14,7 +13,7 @@ public class Exceptions {
     public static class CSVWrongFormatException extends Exception {
         /**
          * Constructor for CSVWrongFormatException
-         * @param message
+         * @param message The message to display when the exception is thrown
          */
         public CSVWrongFormatException(String message) {
             super(message);

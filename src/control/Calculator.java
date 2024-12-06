@@ -1,33 +1,29 @@
 package control;
 
+import control.Exceptions.PacketOutOfBoundsException;
 import data.Packet;
 import data.Exceptions.CSVWrongFormatException;
 import data.Importer;
 import data.Constants;
 
 import java.util.List;
-
-import control.Exceptions.PacketOutOfBoundsException;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
  * The {@code Calculator} class provides functionality to calculate shipping costs 
- * for a given package based on its dimensions and weight. 
+ * for a given packet based on its dimensions and weight. 
  * 
  * <p>This class uses a CSV file to import shipping cost data and determines the cost 
- * by comparing the package's properties against predefined thresholds. It also includes 
- * methods to validate the package dimensions and weight, calculate the girth, and sort 
- * dimensions in ascending order.</p>
+ * by comparing the packet's properties against predefined thresholds. </p>
  */
 public class Calculator {
 
 	/** 
 	 * This method calculates the shipping costs for a given pack.
 	 * 
-	 * @param pack The pack with its properties for which the shipping costs should be calculated in mm and g
-	 * @return The shipping costs (in €) for the given package as a decimal number
+	 * @param pack The packet with its properties for which the shipping costs should be calculated (in mm and g)
+	 * @return The shipping costs (in €) for the given packet as a decimal number
 	 * @throws CSVWrongFormatException if the csv file with the shipping costs cannot be found or read
 	 * @throws PacketOutOfBoundsException if the values of the pack are negative or out of bounds
 	 * @see Packet
@@ -43,30 +39,31 @@ public class Calculator {
 			shippingCostsList = Importer.importShippingCosts();
 		}
 		catch (CSVWrongFormatException e) {
+			// throw an exception if the csv file cannot be found or read
 			throw new CSVWrongFormatException(e.getMessage());
 		}
 
-		// sort the pack values in ascending order (length -> width -> height)
+		// sort the packet values in ascending order (length -> width -> height)
 		sortPackageValues(pack);
 
 		// check if the packet is in bounds
 		checkBoundsAndValues(pack);
 
-		// calculate the girth measure of the package
+		// calculate the girth measure of the packet
 		girth = calcGirth(pack);
 
-		// calculate the shipping costs in euro
+		// calculate the shipping costs in €
 		shippingCosts = calcLogic(girth, pack, shippingCostsList);
 
-		// return the shipping costs of the packet in euro
+		// return the shipping costs of the packet in €
 		return shippingCosts;
 	}
 
 	/**
-	 * This method includes the logic for calculating the shipping costs for a given pack.
-	 * @param girth 
-	 * @param pack
-	 * @param shippingCostsList
+	 * This method includes the logic for calculating the shipping costs for a given packet.
+	 * @param girth the girth of the packet
+	 * @param pack the packet for which the shipping costs should be calculated
+	 * @param shippingCostsList the list of shipping costs for different packet sizes
 	 * @return the shipping costs as double
 	 */
 	private double calcLogic(int girth, Packet pack, List<Double> shippingCostsList) {
@@ -102,9 +99,9 @@ public class Calculator {
 	}
 
 	/**
-	 * This method checks if a pack is small.
-	 * @param pack
-	 * @return true if the pack is small, false otherwise
+	 * This method checks if a packet is small (300x300x150 [mm], 1000g).
+	 * @param pack the packet to be checked
+	 * @return true if the packet is small, false otherwise
 	 */
 	private boolean isSmallPacket(Packet pack) {
 		boolean isSmallPacket = false;
@@ -118,9 +115,9 @@ public class Calculator {
 	}
 
 	/**
-	 * This method checks if a pack is medium.
-	 * @param pack
-	 * @return true if the pack is medium, false otherwise
+	 * This method checks if a packet is medium (600x300x150 [mm], 2000g).
+	 * @param pack the packet to be checked
+	 * @return true if the packet is medium, false otherwise
 	 */
 	private boolean isMediumPacket(Packet pack) {
 		boolean isMediumPackage = false;
@@ -134,8 +131,8 @@ public class Calculator {
 	}
 
 	/**
-	 * This method checks if a pack is big.
-	 * @param pack
+	 * This method checks if a packet is big (1200x600x600 [mm]).
+	 * @param pack the packet to be checked
 	 * @return true if the pack is big, false otherwise
 	 */
 	private boolean isBigPacket(Packet pack)	{
@@ -150,10 +147,11 @@ public class Calculator {
 	}
 
 	/**
-	 * This method checks if the girth and weight of a pack are within the allowed range.
-	 * @param pack
-	 * @param girth
-	 * @param maxWeight
+	 * This method checks if the girth and weight of a pack are within the allowed range (girth <= 3000mm).
+	 * 
+	 * @param pack the pack to be checked
+	 * @param girth the girth of the pack
+	 * @param maxWeight the maximum allowed weight of the pack
 	 * @return true if the girth and weight are within the allowed range, false otherwise
 	 */
 	private boolean girthAndWeightCheck(Packet pack, int girth, int maxWeight) {
@@ -168,7 +166,8 @@ public class Calculator {
 	}
 
 	/**
-	 * This method checks if the values of a pack are positive and within the allowed range.
+	 * This method checks if the values of a pack are positive and within the allowed range (<1200mm, <600mm, 600mm, <31000g).
+	 * 
 	 * @param pack the pack to be checked
 	 * @throws PacketOutOfBoundsException if the values are negative or out of bounds
 	 */
@@ -185,10 +184,10 @@ public class Calculator {
 	/**
 	 * This method calculates the girth measurement of a package.
 	 * 
-	 * @param height
-	 * @param width
-	 * @param length
-	 * @return the girth measure of the package
+	 * @param height height of the packet
+	 * @param width width of the packet
+	 * @param length length of the packet
+	 * @return the girth measure of the packet
 	 */
 	private int calcGirth(Packet pack) {
 
@@ -203,8 +202,8 @@ public class Calculator {
 	/**
 	 * This method sorts the values of a pack in ascending order (length -> width -> height).
 	 * 
-	 * @param pack the pack to be sorted
-	 * @return the sorted pack
+	 * @param pack the packet to be sorted
+	 * @return the sorted packet
 	 * @see Packet
 	 */
 	private Packet sortPackageValues(Packet pack)	{

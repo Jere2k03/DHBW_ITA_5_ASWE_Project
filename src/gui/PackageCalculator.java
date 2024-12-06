@@ -1,5 +1,7 @@
 package gui;
 
+import data.Constants;
+
 import javafx.application.Application;
 import javafx.geometry.Orientation;
 import javafx.geometry.Rectangle2D;
@@ -9,46 +11,21 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
-import data.Constants;
-
 /**
  * The {@code PackageCalculator} class represents the main application for calculating
  * shipping costs based on package dimensions. It is a JavaFX application that provides
- * a graphical user interface (GUI) with multiple areas, such as the toolbar, explorer,
- * editor, inspector, messages, and status area.
- * <p>
- * This class uses a singleton pattern to ensure that there is only one instance of the application
- * running at a time. It initializes and arranges the main components of the user interface.
- * </p>
- * 
- * <p>
- * The main layout includes a {@link SplitPane} for dividing the editor, inspector, and messages
- * areas. The GUI is set up when the application starts, and the stage is configured to maximize to the
- * primary screen's bounds.
- * </p>
+ * a graphical user interface (GUI) with multiple areas, such as the toolbar, messages, and calculator area.
  */
 public class PackageCalculator extends Application {
 
-    /**
-     * The application name, used as the window title.
-     */
+    /** The application name */
     public static final String APPNAME = Constants.Labels.APP_NAME;
     
-    // Singleton instance
-    private static PackageCalculator instance;
-    
-    /**
-     * Retrieves the singleton instance of the {@code PackageCalculator}.
-     * 
-     * @return the singleton instance of the application
-     */
-    public static PackageCalculator getInstance() {
-        return instance;
-    }
-    
-    // GUI areas
+    /** init Toolbar GUI Area */
     public static final ToolbarArea toolbarArea = new ToolbarArea();
+    /** init Calculator GUI Area */
     public static final CalculatorArea calculatorArea = new CalculatorArea();
+    /** init Messages GUI Area */
     public static final MessagesArea messagesArea = new MessagesArea();
 
     // Primary stage reference
@@ -64,7 +41,7 @@ public class PackageCalculator extends Application {
     }
 
     /**
-     * The entry point for JavaFX applications. This method sets up the user interface, 
+     * This method sets up the user interface, 
      * including all panes and their layouts. It also maximizes the window size to fit 
      * the screen's available space.
      * 
@@ -101,10 +78,10 @@ public class PackageCalculator extends Application {
 
     /**
      * The main method, which serves as the entry point for the Java application.
-     * It launches the JavaFX application.
+     * It launches the application.
      * 
      * @param args the command line arguments passed to the application
-     * @author Jeremias
+     * @author Jeremias Matt
      */
     public static void main(String[] args) {
         launch(args);

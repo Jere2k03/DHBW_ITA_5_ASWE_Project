@@ -1,7 +1,5 @@
 package gui;
 
-import java.io.IOException;
-
 import control.Calculator;
 import control.Exceptions.PacketOutOfBoundsException;
 import data.Packet;
@@ -9,6 +7,7 @@ import data.Exceptions.CSVWrongFormatException;
 import data.Constants;
 
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -16,13 +15,14 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.control.Tooltip;
+import javafx.scene.paint.Color;
+import javafx.scene.effect.DropShadow;
 
 /**
  * The CalculatorArea class represents the GUI component responsible for
  * calculating shipping costs based on user input of package dimensions and weight.
- * It extends {@link GridPane} to arrange input fields, labels, and buttons in a grid layout.
  * 
- * @version 0.1
+ * @version 0.3
  */
 public class CalculatorArea extends GridPane {
 
@@ -40,35 +40,36 @@ public class CalculatorArea extends GridPane {
 
     /**
      * Checks the user input for package dimensions and weight.
+     * 
      * @return An array of integers containing the package dimensions and weight.
-     * @throws IOException if the input is not numeric or empty
+     * @throws PacketOutOfBoundsException if the input is not numeric or empty
      */
     private int[] checkInput() throws PacketOutOfBoundsException {
         int[] packageValues;
-        //check user input
         try {
             // Get user input values
             int length = Integer.parseInt(lengthTextField.getText());
             int width = Integer.parseInt(widthTextField.getText());
             int height = Integer.parseInt(heightTextField.getText());
             int weight = Integer.parseInt(weightTextField.getText());
+
             packageValues = new int[] {length, width, height, weight};
+
             return packageValues;
         }
         catch (NumberFormatException e) {
-            // reset Label
             shippingCostLabel.setText(Constants.Symbols.QUESTIONMARK);
 
-            // determine which TextField caused the error
             String errorField = "";
+
             if (lengthTextField.getText().isEmpty() || !lengthTextField.getText().matches("\\d+")) {
-            errorField = Constants.Labels.LENGTH_LABEL;
+                errorField = Constants.Labels.LENGTH_LABEL;
             } else if (widthTextField.getText().isEmpty() || !widthTextField.getText().matches("\\d+")) {
-            errorField = Constants.Labels.WIDTH_LABEL;
+                errorField = Constants.Labels.WIDTH_LABEL;
             } else if (heightTextField.getText().isEmpty() || !heightTextField.getText().matches("\\d+")) {
-            errorField = Constants.Labels.HEIGHT_LABEL;
+                errorField = Constants.Labels.HEIGHT_LABEL;
             } else if (weightTextField.getText().isEmpty() || !weightTextField.getText().matches("\\d+")) {
-            errorField = Constants.Labels.WEIGHT_LABEL;
+                errorField = Constants.Labels.WEIGHT_LABEL;
             }
 
             throw new PacketOutOfBoundsException(Constants.Messages.ERROR_PREFIX + Constants.Messages.OUT_OF_BOUNDS_ERROR_1 + errorField + Constants.Messages.OUT_OF_BOUNDS_ERROR_2);
@@ -83,15 +84,13 @@ public class CalculatorArea extends GridPane {
      */
     private double calcShippingCosts() {
         Calculator calc = new Calculator(); // Initialize the calculator
-        // initialize Package dimensions and weight
         int length;
         int width;
         int height;
-        int weight; 
+        int weight;
         Double costs; // initialize costs
         MessagesArea messagesArea = PackageCalculator.messagesArea; // initialize messagesArea
         
-        // checks the user input and calculates the shipping costs
         try {
             //check user input
             int[] packageValues = checkInput(); // check user input
@@ -113,7 +112,7 @@ public class CalculatorArea extends GridPane {
             messagesArea.setMessage(Constants.Messages.CALCULATION_SUCCESSFUL_MSG + costs + Constants.Symbols.EURO);
         }
         catch (PacketOutOfBoundsException | CSVWrongFormatException e) {             
-            // reset Label
+            // Label for the shipping costs
             shippingCostLabel.setText(Constants.Symbols.QUESTIONMARK); 
 
             messagesArea = PackageCalculator.messagesArea; // initialize messagesArea
@@ -129,58 +128,55 @@ public class CalculatorArea extends GridPane {
     /**
      * Constructs a new CalculatorArea object that initializes and arranges
      * the user interface components (input fields, labels, and buttons) for shipping cost calculation.
-     * Also sets up the action listener for the calculate button.
      */
     public CalculatorArea() {
-                    
         // Set standard padding between elements
         this.setPadding(new Insets(20, 20, 20, 20));
         this.setHgap(15);
         this.setVgap(15);
-
+        
         // Center the grid in the window
-        this.setAlignment(javafx.geometry.Pos.CENTER);
-
-        // Add a header label "Calculator" in larger font and bold
+        this.setAlignment(Pos.CENTER);
+        
+        // header label
         Label headerLabel = new Label(Constants.Labels.CALCULATOR_LABEL);
-        headerLabel.setFont(Font.font(Constants.Styles.LABEL_FONT, FontWeight.BOLD, 24));
+        headerLabel.setFont(Font.font(Constants.Styles.LABEL_FONT, FontWeight.BOLD, 28));  // Increased font size
         this.add(headerLabel, 1, 0, 3, 1);
 
-        // Add description labels for the input fields
+        // labels for the input fields
         Label lengthLabel = new Label(Constants.Labels.LENGTH_LABEL);
         Label widthLabel = new Label(Constants.Labels.WIDTH_LABEL);
         Label heightLabel = new Label(Constants.Labels.HEIGHT_LABEL);
         Label weightLabel = new Label(Constants.Labels.WEIGHT_LABEL);
         
-        // Apply style to the labels
-        String labelStyle = Constants.Styles.LABEL_STYLE_CALCAREA;
-        lengthLabel.setStyle(labelStyle);
-        widthLabel.setStyle(labelStyle);
-        heightLabel.setStyle(labelStyle);
-        weightLabel.setStyle(labelStyle);
+        // label style
+        lengthLabel.setStyle(Constants.Styles.LABEL_STYLE_CALCAREA);
+        widthLabel.setStyle(Constants.Styles.LABEL_STYLE_CALCAREA);
+        heightLabel.setStyle(Constants.Styles.LABEL_STYLE_CALCAREA);
+        weightLabel.setStyle(Constants.Styles.LABEL_STYLE_CALCAREA);
 
         this.add(lengthLabel, 1, 1);
         this.add(widthLabel, 1, 2);
         this.add(heightLabel, 1, 3);
         this.add(weightLabel, 1, 4);
 
-        // Add input fields for dimensions and weight
+        // Add input fields for dimensions and weight with larger font size
         this.add(lengthTextField, 2, 1);
         this.add(widthTextField,  2, 2);
         this.add(heightTextField, 2, 3);
         this.add(weightTextField, 2, 4);
 
-        // Add labels for the units (millimeters and grams)
+        // Add unit labels (mm and g)
         Label mmLabel1 = new Label(Constants.Measurements.MM);
         Label mmLabel2 = new Label(Constants.Measurements.MM);
         Label mmLabel3 = new Label(Constants.Measurements.MM);
         Label gLabel = new Label(Constants.Measurements.G);
 
-        // Apply style to the unit labels
-        mmLabel1.setStyle(labelStyle);
-        mmLabel2.setStyle(labelStyle);
-        mmLabel3.setStyle(labelStyle);
-        gLabel.setStyle(labelStyle);
+        // Apply minimal style to the unit labels with increased font size
+        mmLabel1.setStyle(Constants.Styles.LABEL_STYLE_CALCAREA);
+        mmLabel2.setStyle(Constants.Styles.LABEL_STYLE_CALCAREA);
+        mmLabel3.setStyle(Constants.Styles.LABEL_STYLE_CALCAREA);
+        gLabel.setStyle(Constants.Styles.LABEL_STYLE_CALCAREA);
 
         this.add(mmLabel1, 3, 1);
         this.add(mmLabel2, 3, 2);
@@ -189,15 +185,20 @@ public class CalculatorArea extends GridPane {
             
         // Add shipping cost calculation line with label, result, and button
         Label shippingCostsLabel = new Label(Constants.Labels.SHIPPING_COSTS_LABEL);
-        shippingCostsLabel.setStyle(labelStyle);
-        shippingCostLabel.setStyle(labelStyle);
+        shippingCostsLabel.setStyle(Constants.Styles.LABEL_STYLE_CALCAREA);
 
         this.add(shippingCostsLabel, 1, 5);
         this.add(shippingCostLabel, 2, 5);
-        // Style the calculate button
-        calcButton.setStyle(Constants.Styles.CALCBUTTON_STYLE);
+
+        // Style the calculate button with a smooth transition effect
+        calcButton.setStyle(Constants.Styles.STYLE_CALCBTN);
+        calcButton.setEffect(new DropShadow(5, Color.GRAY));
         this.add(calcButton, 3, 5);
-        
+
+        // Add hover effect for the calculate button
+        calcButton.setOnMouseEntered(_ -> calcButton.setStyle(Constants.Styles.STYLE_CALCBTN_HOVER));
+        calcButton.setOnMouseExited(_ -> calcButton.setStyle(Constants.Styles.STYLE_CALCBTN));
+
         // Set the action listener for the calculate button
         calcButton.setOnAction(_ -> calcShippingCosts());
 
